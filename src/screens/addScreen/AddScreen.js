@@ -7,22 +7,18 @@ import DatePicker from 'react-native-date-picker'
 
 export default class AddScreen extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = { date: new Date() } 
-
     }
     setDate = (e) => {
-      this.setState=({date : e})
+      this.setState({date : e})
 
   }
-
  
-
-  
   render() {
+    console.log(this.state.date)
     return (
-
       <ScrollView style={Styles.container}>
         <View>
           <Text style={Styles.containerText}>Add Your Name & BirthDate!</Text>
@@ -31,7 +27,7 @@ export default class AddScreen extends Component {
         <ScrollView style={Styles.inputView}>
           <InputText placeHolder='Enter your name' />
              <Text style={Styles.dateText}>Set Your DOB</Text>
-          <DatePicker  mode="date" date={this.state.date} onDateChange={this.setDate} />
+          <DatePicker  mode="date"  date={this.state.date} onDateChange={this.setDate} />
 
           <View style={Styles.buttonView}>
             <TouchableOpacity

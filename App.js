@@ -1,11 +1,21 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 import Navigation from './src/navigation/Navigation'
+import { Store } from './src/config/Store'
+import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
 
-export default class App extends Component {
+ class App extends Component {
+  componentDidMount(){
+    console.log('hallo')
+  }
   render() {
     return (
-      <Navigation />
+      <Provider store={Store}>
+        <Navigation />
+      </Provider>
     )
   }
 }
+
+export default App
