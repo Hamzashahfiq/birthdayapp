@@ -27,7 +27,7 @@ export default class AddScreen extends Component {
         <View>
           <Text style={Styles.containerText}>Add Your Name & BirthDate!</Text>
         </View>
-        <Text>{this.state.date}</Text>
+        {/* <Text>{this.state.date}</Text> */}
         <ScrollView style={Styles.inputView}>
           <InputText placeHolder='Enter your name' />
              <Text style={Styles.dateText}>Set Your DOB</Text>
