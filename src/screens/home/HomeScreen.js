@@ -3,14 +3,18 @@ import React, { Component } from 'react'
 import Styles from './HomeScreenStyle'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
+import { fatchUserData } from '../../store/BirthdaySlice';
+
 
 
  class HomeScreen extends Component {
   constructor(props){
     super(props)
   }
+  componentDidMount(){
+    this.props.fatchData()
+  }
   render() {
-    // console.log(this.props)
     return (
       <View style={Styles.container}>
         <View style={Styles.inContainer1} >
@@ -30,9 +34,6 @@ import { connect } from 'react-redux';
            <Text style={Styles.inContainer4text1}>R.Day</Text>
            <Text style={Styles.inContainer4text2}>hallo</Text>
         </View>
-        
-         
-        
       </View>
     )
   }
@@ -40,4 +41,13 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({ birthdayUserData: state.BirthdaySlice.birthdayUserData })
 
-export default connect(mapStateToProps)(HomeScreen);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // dispatching plain actions
+    fatchData: () => dispatch(fatchUserData())
+  }
+}
+
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen);

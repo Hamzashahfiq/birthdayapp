@@ -5,6 +5,7 @@ import InputText from '../../componet/inputText/InputText'
 import DatePicker from 'react-native-date-picker'
 
 
+
 export default class AddScreen extends Component {
 
   constructor(props) {
@@ -17,13 +18,11 @@ export default class AddScreen extends Component {
   }
  
   render() {
-    console.log(this.state.date)
     return (
       <ScrollView style={Styles.container}>
         <View>
           <Text style={Styles.containerText}>Add Your Name & BirthDate!</Text>
         </View>
-        {/* <Text>{this.state.date}</Text> */}
         <ScrollView style={Styles.inputView}>
           <InputText placeHolder='Enter your name' />
              <Text style={Styles.dateText}>Set Your DOB</Text>
