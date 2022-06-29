@@ -40,8 +40,15 @@ import { StyleSheet } from 'react-native';
     },
     inContainer2text:{
         color:'white',
-        fontSize:30,
+        fontSize:25,
+        fontWeight:'bold',
         fontFamily:'"Times New Roman", Times, serif'
+    },
+    inContainer2text3:{
+        color:'white',
+        fontSize:15,
+        fontFamily:'"Times New Roman", Times, serif'
+
     },
     inContainer4text1:{
         color:'white',
