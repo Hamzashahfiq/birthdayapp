@@ -1,22 +1,65 @@
-import { Text, View, TextInput, ScrollView, Button, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { Text, View, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 import React, { Component } from 'react'
 import Styles from './AddScreenStyle'
 import InputText from '../../componet/inputText/InputText'
 import DatePicker from 'react-native-date-picker'
+import { addUserData } from '../../store/BirthdaySlice'
+import { connect } from 'react-redux'
 
 
 
-export default class AddScreen extends Component {
+class AddScreen extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { date: new Date() } 
+    this.state = {
+      date: new Date(),
+      name: '',
+      id: 'u1',
+      addLoading: false
     }
-    setDate = (e) => {
-      this.setState({date : e})
+  }
+  setDate = (e) => {
+
+    this.setState({ date: e })
+  }
+  setName = (e) => {
+    this.setState({ name: e })
+  }
+  setLoading = () => {
+    this.setState({ addLoading: true })
+  }
+  unSetLoading = () => {
+    this.setState({
+      date: new Date(),
+      name: '',
+      id: 'u1',
+      addLoading: false
+    })
 
   }
- 
+  onPress = () => {
+    if (!this.state.name) {
+      Alert.alert("Enter all required data first.")
+      return;
+    }
+    const sloading = this.setLoading
+    const unloading = this.unSetLoading
+
+    let dateObj = this.state.date
+    let dateStr = dateObj.toLocaleDateString()
+    let data = {
+      name: this.state.name,
+      id: this.state.id,
+      dob: dateStr
+    }
+
+    this.props.addData({ data, sloading, unloading })
+
+  }
+
+
+
   render() {
     return (
       <ScrollView style={Styles.container}>
@@ -24,17 +67,25 @@ export default class AddScreen extends Component {
           <Text style={Styles.containerText}>Add Your Name & BirthDate!</Text>
         </View>
         <ScrollView style={Styles.inputView}>
-          <InputText placeHolder='Enter your name' />
-             <Text style={Styles.dateText}>Set Your DOB</Text>
-          <DatePicker  mode="date"  date={this.state.date} onDateChange={this.setDate} />
+          <InputText placeHolder='Enter your name*' value={this.state.name} onChangeText={this.setName} />
+          <Text style={Styles.dateText}>Set Your DOB</Text>
+          <DatePicker maximumDate= {new Date()} mode="date" date={this.state.date} onDateChange={this.setDate} />
 
           <View style={Styles.buttonView}>
-            <TouchableOpacity
-              style={Styles.button}
-              onPress={null}
-            >
-              <Text style={Styles.buttonText}>Add</Text>
-            </TouchableOpacity>
+            {this.state.addLoading ?
+              <TouchableOpacity
+                style={Styles.button}
+                onPress={null}
+              >
+                <Text style={Styles.buttonText}><ActivityIndicator color='white' /></Text>
+              </TouchableOpacity> :
+              <TouchableOpacity
+                style={Styles.button}
+                onPress={this.onPress}
+              >
+                <Text style={Styles.buttonText}>Add</Text>
+              </TouchableOpacity>
+            }
           </View>
 
         </ScrollView>
@@ -43,3 +94,15 @@ export default class AddScreen extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    // dispatching plain actions
+
+    addData: ({ data, sloading, unloading }) => dispatch(addUserData({ data, sloading, unloading }))
+  }
+}
+
+
+
+export default connect(null, mapDispatchToProps)(AddScreen);

@@ -4,25 +4,53 @@ import { Alert } from 'react-native';
 
 export const fatchUserData = createAsyncThunk(
    'birthday/userData',
-   async () => {
+   async ({sLoading, usLoading}) => {
       try {
-         const snapshot = await database().ref('https://birthdayapp-a3688-default-rtdb.firebaseio.com') 
-         .child('birthdayData').once('value')
-           
+         sLoading()
+         const snapshot = await database()
+            .ref('/birthdayData').once('value')
 
-         console.log('data', snapshot)
+         var birthData = []
+         snapshot.forEach((item) => {
+            birthData.push(item.val())
+         })
       }
       catch (error) {
          Alert.alert(error.message)
+         return;
+      }finally {
+         usLoading()
       }
+
+      return birthData
+   }
+)
+export const addUserData = createAsyncThunk(
+   'birthday/addUserData',
+   async ({data, sloading,unloading }) => {
+       
+      try {
+  
+         sloading()
+         await database()
+         .ref('/birthdayData/' + data.id)
+         .update(data)
+         Alert.alert('Birthday detail has been updated.')
+      }
+      catch (error) {
+         Alert.alert(error.message)
+         return;
+      }
+      finally {
+         unloading()
+      }
+
+      return data
    }
 )
 
 const initialState = {
-   birthdayUserData: {
-      name: "abc",
-      dob: "29-06-2022"
-   }
+   birthdayUserData: {}
 }
 
 
@@ -36,7 +64,15 @@ export const BirthdaySlice = createSlice({
       // Add reducers for additional action types here, and handle loading state as needed
       builder.addCase(fatchUserData.fulfilled, (state, action) => {
          //   // Add user to the state array
-         //   state.birthdayUserData = action.payload;
+         let bData = {
+            name: action.payload[0].name,
+            id: action.payload[0].id,
+            dob: action.payload[0].dob
+         }
+         state.birthdayUserData = bData;
+      })
+      builder.addCase(addUserData.fulfilled, (state, action) => {
+         state.birthdayUserData = action.payload;
       })
    },
 })

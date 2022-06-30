@@ -10,7 +10,7 @@ export default class InputText extends Component {
     render() {
         return (
             <View style = {Styles.inputView}>
-                <TextInput  placeholder = {this.props.placeHolder} style={Styles.input} />
+                <TextInput  placeholder = {this.props.placeHolder} value = {this.props.value} style={Styles.input} onChangeText={this.props.onChangeText}/>
             </View>
         )
     }
