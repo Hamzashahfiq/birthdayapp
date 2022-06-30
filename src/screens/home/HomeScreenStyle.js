@@ -5,32 +5,56 @@ import { StyleSheet } from 'react-native';
     container:{
         backgroundColor:'#a9def9',
         flex:1,
-        paddingVertical:10
+        paddingVertical:20
     },
     inContainer1:{
         flex:1,
         marginHorizontal:20,
+        padding: 10,
         borderBottomWidth:1,
         borderColor:'#99ffffff',
-        maxWidth:40,
+        maxWidth:60,
         justifyContent:'center',
       
     },
     inContainer2:{
         flex:2,
         marginHorizontal:20,
+        padding: 10,
         marginVertical:10,
         borderBottomWidth:1,
         borderColor:'#99ffffff',
+        height:200
         
     },
     inContainer3:{
-        flex:1,
-        marginHorizontal:20
+        flex:2,
+        marginHorizontal:20,
+        padding:20,
+        justifyContent:'center',
+        alignItems:'center',
+        padding: 10,
+        borderBottomWidth:1,
+        borderColor:'#99ffffff',
+        height:150
+    },
+    inContainer3text1:{
+        color:'white',
+        fontSize:20,
+        fontWeight:'bold',
+        fontFamily:'"Times New Roman", Times, serif'
+    },
+    inContainer3text2:{
+        color:'white',
+        marginTop:40,
+        fontSize:15,
+        fontWeight:'bold',
+        fontFamily:'"Times New Roman", Times, serif'
     },
     inContainer4:{
         flex:2,
-        marginHorizontal:20
+        marginHorizontal:20,
+        padding: 10,
     },
     circleView:{
        width:50,

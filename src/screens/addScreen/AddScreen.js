@@ -47,7 +47,7 @@ class AddScreen extends Component {
     const unloading = this.unSetLoading
 
     let dateObj = this.state.date
-    let dateStr = dateObj.toLocaleDateString()
+    let dateStr = dateObj.toDateString()
     let data = {
       name: this.state.name,
       id: this.state.id,
