@@ -6,18 +6,19 @@ import { connect } from 'react-redux';
 import { fatchUserData } from '../../store/BirthdaySlice';
 import SplashScreen from '../splashScreen/SplashScreen';
 import moment from 'moment';
-
+import CountDown from 'react-native-countdown-component';
 
 
 
 class HomeScreen extends Component {
   constructor(props) {
     super(props)
-    this.state = { loading: false ,
-                    currentDate : null,
-                    currentBDate : null,
+    this.state = {
+      loading: false,
+      currentDate: null,
+      currentBDate: null,
 
-                }
+    }
   }
   setLoading = () => {
     this.setState({ loading: true })
@@ -26,40 +27,52 @@ class HomeScreen extends Component {
     this.setState({ loading: false })
   }
 
-
+ 
   componentDidMount() {
     const sLoading = this.setLoading
     const usLoading = this.unSetLoading
-
     this.props.fatchData({ sLoading, usLoading })
-  }
-   FetchData = () => {
-    let cDate = moment().format('MMMM Do YYYY, h:mm:ss a')
-    this.setState({ currentDate: cDate })
-  
-  }
-
-  bDayRemaining = () =>{
-     let date = new Date()
-     let year = date.getFullYear()
-     let bDate =  new Date(this.props.birthdayUserData.dob)
-     let getDate = bDate.getDate();
-     let getMonth = bDate.getMonth();
-    let newBdate = `${getMonth +1}-${getDate}-${year}`
-    let BdateCurrent = new Date(newBdate)
-    // this.setState({currentBDate : BdateCurrent})
-      this.setState({currentBDate : BdateCurrent})   
-
-
-  }
- 
+    console.log('did mount')
     
-  
+  }
+  // FetchData = () => {
+  //   let cDate = moment().format('MMMM Do YYYY, h:mm')
+  //   this.setState({ currentDate: cDate })
+
+  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.birthdayUserData.dob !== this.props.birthdayUserData.dob) {
+      this.bDayRemaining()
+    }
+  }
+  bDayRemaining = () => {
+    let date = new Date()
+    let year = date.getFullYear()
+    let bDate = new Date(this.props.birthdayUserData.dob)
+    let getDate = bDate.getDate();
+    let getMonth = bDate.getMonth();
+    let BdateCurrent = new Date(year, getMonth, getDate, 0, 0, 0)
+    let btime = BdateCurrent.getTime()
+    let currentTime = date.getTime()
+    let rtime = btime - currentTime
+    this.setState({ currentBDate: rtime })
+  }
+
+  UNSAFE_componentWillMount() {
+    console.log('will mount')
+    // this.FetchData() 
+  }
+
+
+
   render() {
-    console.log(this.state.currentBDate)
     const loadoing = this.state.loading;
-    // setInterval(this.FetchData, 1000);
-    setInterval(this.bDayRemaining, 5000);
+    // setInterval(this.FetchData, 20000);
+    console.log(this.state.currentBDate)
+   
+    
+
+
     return (
       <>
         {loadoing ? <SplashScreen /> :
@@ -71,17 +84,25 @@ class HomeScreen extends Component {
                 </View>
               </View>
               <View style={Styles.inContainer2}>
-                <Text style={Styles.inContainer2text}>{this.props.birthdayUserData.name}</Text>
-                <Text style={Styles.inContainer2text}>BirthDay!</Text>
+                <Text style={Styles.inContainer2text}>{this.props.birthdayUserData.name}`s</Text>
+                <Text style={Styles.inContainer2text}>Birthday!</Text>
                 <Text style={Styles.inContainer2text3}>{this.props.birthdayUserData.dob}</Text>
               </View>
               <View style={Styles.inContainer3} >
-                <Text style={Styles.inContainer3text1}>Current Date and Time</Text>
-                <Text style={Styles.inContainer3text2}>{this.state.currentDate}</Text>
+                {/* <Text style={Styles.inContainer3text1}>Current Date and Time</Text>
+                <Text style={Styles.inContainer3text2}>{this.state.currentDate}</Text> */}
+                <Text style={Styles.inContainer4text1}>R.Day</Text>
+                <View style={Styles.inContainer4text2}>
+                  <CountDown
+                    until={6000}
+                    // onFinish={() => alert('finished')}
+                    // onPress={() => alert('hello')}
+                    size={20}
+                  />
+                </View>
               </View>
               <View style={Styles.inContainer4}>
-                <Text style={Styles.inContainer4text1}>R.Day</Text>
-                <Text style={Styles.inContainer4text2}>hallo</Text>
+
               </View>
             </ScrollView>
           </View>

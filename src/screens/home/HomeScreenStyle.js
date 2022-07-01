@@ -24,7 +24,7 @@ import { StyleSheet } from 'react-native';
         marginVertical:10,
         borderBottomWidth:1,
         borderColor:'#99ffffff',
-        height:200
+        height:130
         
     },
     inContainer3:{
@@ -77,7 +77,9 @@ import { StyleSheet } from 'react-native';
     inContainer4text1:{
         color:'white',
           fontWeight:'bold',
-        fontFamily:'"Times New Roman", Times, serif'
+        fontFamily:'"Times New Roman", Times, serif',
+        textAlign:'center',
+        fontSize:20,
     },
     inContainer4text2:{
         color:'white',
