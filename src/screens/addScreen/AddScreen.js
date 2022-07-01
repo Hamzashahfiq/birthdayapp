@@ -45,6 +45,7 @@ class AddScreen extends Component {
     }
     const sloading = this.setLoading
     const unloading = this.unSetLoading
+    const navigation = this.props.navigation
 
     let dateObj = this.state.date
     let dateStr = dateObj.toDateString()
@@ -54,7 +55,7 @@ class AddScreen extends Component {
       dob: dateStr
     }
 
-    this.props.addData({ data, sloading, unloading })
+    this.props.addData({ data, sloading, unloading ,navigation})
 
   }
 
@@ -99,7 +100,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     // dispatching plain actions
 
-    addData: ({ data, sloading, unloading }) => dispatch(addUserData({ data, sloading, unloading }))
+    addData: ({ data, sloading, unloading, navigation}) => dispatch(addUserData({ data, sloading, unloading,navigation }))
   }
 }
 

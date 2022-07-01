@@ -5,16 +5,17 @@ import { StyleSheet } from 'react-native';
     container:{
         backgroundColor:'#a9def9',
         flex:1,
-        paddingVertical:20
     },
     inContainer1:{
         flex:1,
         marginHorizontal:20,
+        marginVertical:30,
         padding: 10,
         borderBottomWidth:1,
         borderColor:'#99ffffff',
         maxWidth:60,
         justifyContent:'center',
+
       
     },
     inContainer2:{
@@ -26,6 +27,9 @@ import { StyleSheet } from 'react-native';
         borderColor:'#99ffffff',
         height:130
         
+    },
+    imageBackground:{
+        flex:1
     },
     inContainer3:{
         flex:2,

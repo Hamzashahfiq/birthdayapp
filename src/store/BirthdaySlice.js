@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import database from '@react-native-firebase/database';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 export const fatchUserData = createAsyncThunk(
    'birthday/userData',
@@ -27,7 +29,7 @@ export const fatchUserData = createAsyncThunk(
 )
 export const addUserData = createAsyncThunk(
    'birthday/addUserData',
-   async ({data, sloading,unloading }) => {
+   async ({data, sloading,unloading ,navigation}) => {
        
       try {
   
@@ -36,6 +38,7 @@ export const addUserData = createAsyncThunk(
          .ref('/birthdayData/' + data.id)
          .update(data)
          Alert.alert('Birthday detail has been updated.')
+         navigation.navigate('Home')
       }
       catch (error) {
          Alert.alert(error.message)
