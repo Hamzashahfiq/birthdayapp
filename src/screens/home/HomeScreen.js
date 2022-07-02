@@ -1,7 +1,6 @@
 import { Text, View, Alert, ScrollView, ImageBackground } from 'react-native'
 import React, { Component } from 'react'
 import Styles from './HomeScreenStyle'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { fatchUserData } from '../../store/BirthdaySlice';
 import SplashScreen from '../splashScreen/SplashScreen';
@@ -19,7 +18,7 @@ class HomeScreen extends Component {
     this.state = {
       loading: false,
       currentDate: null,
-      currentBDate: 786,
+      currentBDate: -10000000,
 
     }
   }
@@ -35,8 +34,6 @@ class HomeScreen extends Component {
     const sLoading = this.setLoading
     const usLoading = this.unSetLoading
     this.props.fatchData({ sLoading, usLoading })
-    console.log('did mount')
-
   }
   // FetchData = () => {
   //   let cDate = moment().format('MMMM Do YYYY, h:mm')
@@ -50,42 +47,58 @@ class HomeScreen extends Component {
   }
   bDayRemaining = () => {
     let date = new Date()
+    let cHours = date.getHours() 
+    let cMts = date.getMinutes() +1
     let year = date.getFullYear()
     let bDate = new Date(this.props.birthdayUserData.dob)
     let getDate = bDate.getDate();
     let getMonth = bDate.getMonth();
-    let BdateCurrent = new Date(year, getMonth, getDate, 0, 0, 0)
+    let BdateCurrent = new Date(year, getMonth, getDate, cHours, cMts, 0)
     let btime = BdateCurrent.getTime()
     let currentTime = date.getTime()
     let rtime = btime - currentTime
     let times = rtime / 1000
-    this.setState({ currentBDate: times })
+    this.setState({ currentBDate: times})
   }
 
-  UNSAFE_componentWillMount() {
-    console.log('will mount')
-    // this.FetchData() 
+  // UNSAFE_componentWillMount() {
+  //   console.log('will mount')
+  //   // this.FetchData() 
+  // }
+
+  onFinish = () => {
+      let bText = this.props.birthdayUserData.name;
+     this.props.navigation.navigate('Notification',{text:bText})
   }
+
+
+   componentWillUnmount = () => {
+    this.setState({ currentBDate: -10000000 })
+   }
 
 
 
   render() {
     const loadoing = this.state.loading;
     // setInterval(this.FetchData, 20000);
+    let bgImageArr = [{ text: 'Happy Sunday', src:require('../../imageAssets/bg0.jpg') }, { text: 'Happy Monday', src: require('../../imageAssets/bg1.jpg') }, { text: 'Happy Tuesday', src: require('../../imageAssets/bg2.jpg') }
+      , { text: 'Happy Wednesday', src:require('../../imageAssets/bg3.jpg') }, { text: 'Happy Thursday', src: require('../../imageAssets/bg4.jpg') }, { text: 'Happy Friday', src: require('../../imageAssets/bg5.jpg') },
+    { text: 'Happy Saturday', src:require('../../imageAssets/bg6.jpg')}]
+    let day = new Date().getDay()
+
     console.log(this.state.currentBDate)
-
-
-
-
     return (
+
       <>
         {loadoing ? <SplashScreen /> :
           <View style={Styles.container}>
-            <ImageBackground style={Styles.imageBackground} source={require('../../images/bg6.jpg')} resizeMode="cover" >
+            <ImageBackground style={Styles.imageBackground} source={bgImageArr[day].src} resizeMode="cover" >
               <ScrollView >
                 <View style={Styles.inContainer1} >
                   <View style={Styles.circleView} >
-
+                  </View>
+                  <View>
+                    <Text style={Styles.inContainer1Text} >{bgImageArr[day].text}</Text>
                   </View>
                 </View>
                 <View style={Styles.inContainer2}>
@@ -93,21 +106,27 @@ class HomeScreen extends Component {
                   <Text style={Styles.inContainer2text}>Birthday!</Text>
                   <Text style={Styles.inContainer2text3}>{this.props.birthdayUserData.dob}</Text>
                 </View>
-                <View style={Styles.inContainer3} >
-                  {/* <Text style={Styles.inContainer3text1}>Current Date and Time</Text>
-                <Text style={Styles.inContainer3text2}>{this.state.currentDate}</Text> */}
+                {/* <View style={Styles.inContainer3} >
+                   //<Text style={Styles.inContainer3text1}>Current Date and Time</Text>
+                //<Text style={Styles.inContainer3text2}>{this.state.currentDate}</Text> 
 
-                </View>
+                </View> */}
                 <View style={Styles.inContainer4}>
-                  <Text style={Styles.inContainer4text1}>R.Day</Text>
+                  <Text style={Styles.inContainer4text1}>D.Day</Text>
                   <View style={Styles.inContainer4text2}>
-                    {this.state.currentBDate === 786 ? null :
-                      <CountDown
-                        until={this.state.currentBDate}
-                        onFinish={() => alert('finished')}
-                        // onPress={() => alert('hello')}
-                        size={20}
-                      />}
+                     {this.state.currentBDate < -86400 ? <Text style={Styles.countDownText}>CountDown Completed</Text> :
+                   
+                        <CountDown
+                          until={this.state.currentBDate}
+                          // until={20}
+                          onFinish={this.onFinish}
+                          // onPress={() => alert('hello')}
+                          size={20}
+                          timeLabelStyle={{ color: 'white' }}
+                        />
+                        
+                         }
+                           {/* this.state.currentBDate === 786 ? null : */}
                   </View>
                 </View>
               </ScrollView>

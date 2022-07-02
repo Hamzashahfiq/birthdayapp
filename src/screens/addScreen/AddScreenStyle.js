@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native';
 
  const Styles = StyleSheet.create({
     container:{
-        backgroundColor:'#0a9396',
+        flex:1,
+    },
+    smcontainer:{
         flex:1,
         paddingHorizontal:20,
         paddingVertical:40
@@ -15,11 +17,14 @@ import { StyleSheet } from 'react-native';
         textAlign:'center',
         fontWeight:'bold'
     },
+    imageBackground:{
+        flex:1
+    },
     inputView:{
-        marginVertical:30
+        marginVertical:30,
     },
     button:{
-      backgroundColor:'purple',
+      backgroundColor:'#89b0ae',
       width:80,
       borderRadius:10
     },

@@ -1,4 +1,4 @@
-import { Text, View, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
+import { Text, View, ScrollView, TouchableOpacity, Alert, ActivityIndicator, ImageBackground } from 'react-native'
 import React, { Component } from 'react'
 import Styles from './AddScreenStyle'
 import InputText from '../../componet/inputText/InputText'
@@ -55,7 +55,7 @@ class AddScreen extends Component {
       dob: dateStr
     }
 
-    this.props.addData({ data, sloading, unloading ,navigation})
+    this.props.addData({ data, sloading, unloading, navigation })
 
   }
 
@@ -63,34 +63,38 @@ class AddScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={Styles.container}>
-        <View>
-          <Text style={Styles.containerText}>Add Your Name & BirthDate!</Text>
-        </View>
-        <ScrollView style={Styles.inputView}>
-          <InputText placeHolder='Enter your name*' value={this.state.name} onChangeText={this.setName} />
-          <Text style={Styles.dateText}>Set Your DOB</Text>
-          <DatePicker maximumDate= {new Date()} mode="date" date={this.state.date} onDateChange={this.setDate} />
+      <View style={Styles.container}>
+        <ImageBackground style={Styles.imageBackground} source={require('../..//imageAssets/addbg.jpg')} resizeMode="cover" >
+          <ScrollView style={Styles.smcontainer}>
+            <View>
+              <Text style={Styles.containerText}>Add Your Name & BirthDate!</Text>
+            </View>
+            <ScrollView style={Styles.inputView}>
+              <InputText placeHolder='Enter your name*' value={this.state.name} onChangeText={this.setName} />
+              <Text style={Styles.dateText}>Set Your DOB</Text>
+              <DatePicker maximumDate={new Date()} mode="date" date={this.state.date} onDateChange={this.setDate} />
 
-          <View style={Styles.buttonView}>
-            {this.state.addLoading ?
-              <TouchableOpacity
-                style={Styles.button}
-                onPress={null}
-              >
-                <Text style={Styles.buttonText}><ActivityIndicator color='white' /></Text>
-              </TouchableOpacity> :
-              <TouchableOpacity
-                style={Styles.button}
-                onPress={this.onPress}
-              >
-                <Text style={Styles.buttonText}>Add</Text>
-              </TouchableOpacity>
-            }
-          </View>
+              <View style={Styles.buttonView}>
+                {this.state.addLoading ?
+                  <TouchableOpacity
+                    style={Styles.button}
+                    onPress={null}
+                  >
+                    <Text style={Styles.buttonText}><ActivityIndicator color='white' /></Text>
+                  </TouchableOpacity> :
+                  <TouchableOpacity
+                    style={Styles.button}
+                    onPress={this.onPress}
+                  >
+                    <Text style={Styles.buttonText}>Add</Text>
+                  </TouchableOpacity>
+                }
+              </View>
 
-        </ScrollView>
-      </ScrollView>
+            </ScrollView>
+          </ScrollView>
+        </ImageBackground>
+      </View>
 
     )
   }
@@ -100,7 +104,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     // dispatching plain actions
 
-    addData: ({ data, sloading, unloading, navigation}) => dispatch(addUserData({ data, sloading, unloading,navigation }))
+    addData: ({ data, sloading, unloading, navigation }) => dispatch(addUserData({ data, sloading, unloading, navigation }))
   }
 }
 

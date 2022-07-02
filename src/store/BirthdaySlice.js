@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import database from '@react-native-firebase/database';
 import { Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+
 
 
 export const fatchUserData = createAsyncThunk(

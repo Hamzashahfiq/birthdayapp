@@ -9,14 +9,20 @@ import { StyleSheet } from 'react-native';
     inContainer1:{
         flex:1,
         marginHorizontal:20,
-        marginVertical:30,
+        marginTop:30,
         padding: 10,
         borderBottomWidth:1,
         borderColor:'#99ffffff',
-        maxWidth:60,
-        justifyContent:'center',
-
-      
+        flexDirection: 'row', 
+        height:100     
+    },
+    inContainer1Text:{
+       color: 'white',
+       fontSize:18,
+       textAlign:'center',
+       marginLeft:50,
+       marginTop:10,
+       fontWeight:'bold'
     },
     inContainer2:{
         flex:2,
@@ -25,40 +31,47 @@ import { StyleSheet } from 'react-native';
         marginVertical:10,
         borderBottomWidth:1,
         borderColor:'#99ffffff',
-        height:130
+        height:150
         
     },
     imageBackground:{
         flex:1
     },
-    inContainer3:{
-        flex:2,
-        marginHorizontal:20,
-        padding:20,
-        justifyContent:'center',
-        alignItems:'center',
-        padding: 10,
-        borderBottomWidth:1,
-        borderColor:'#99ffffff',
-        height:150
+    countDownText:{
+       color:'white',
+       fontSize:18,
+       fontFamily:'"Times New Roman", Times, serif',
+       textAlign:'center'
     },
-    inContainer3text1:{
-        color:'white',
-        fontSize:20,
-        fontWeight:'bold',
-        fontFamily:'"Times New Roman", Times, serif'
-    },
-    inContainer3text2:{
-        color:'white',
-        marginTop:40,
-        fontSize:15,
-        fontWeight:'bold',
-        fontFamily:'"Times New Roman", Times, serif'
-    },
+    // inContainer3:{
+    //     flex:2,
+    //     marginHorizontal:20,
+    //     padding:20,
+    //     justifyContent:'center',
+    //     alignItems:'center',
+    //     padding: 10,
+    //     borderBottomWidth:1,
+    //     borderColor:'#99ffffff',
+    //     height:80
+    // },
+    // inContainer3text1:{
+    //     color:'white',
+    //     fontSize:20,
+    //     fontWeight:'bold',
+    //     fontFamily:'"Times New Roman", Times, serif'
+    // },
+    // inContainer3text2:{
+    //     color:'white',
+    //     marginTop:40,
+    //     fontSize:15,
+    //     fontWeight:'bold',
+    //     fontFamily:'"Times New Roman", Times, serif'
+    // },
     inContainer4:{
         flex:2,
         marginHorizontal:20,
-        padding: 10,
+        padding: 20,
+        paddingTop:40
     },
     circleView:{
        width:50,
