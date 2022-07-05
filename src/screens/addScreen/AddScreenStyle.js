@@ -48,6 +48,10 @@ import { StyleSheet } from 'react-native';
         fontSize:15,
         fontWeight:'bold'
         
+      },
+      dateView:{
+        alignItems:'center',
+        justifyContent:'center'
       }
 
 

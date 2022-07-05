@@ -5,6 +5,8 @@ import InputText from '../../componet/inputText/InputText'
 import DatePicker from 'react-native-date-picker'
 import { addUserData } from '../../store/BirthdaySlice'
 import { connect } from 'react-redux'
+import TrackPlayer from 'react-native-track-player';
+
 
 
 
@@ -60,7 +62,6 @@ class AddScreen extends Component {
   }
 
 
-
   render() {
     return (
       <View style={Styles.container}>
@@ -72,8 +73,9 @@ class AddScreen extends Component {
             <ScrollView style={Styles.inputView}>
               <InputText placeHolder='Enter your name*' value={this.state.name} onChangeText={this.setName} />
               <Text style={Styles.dateText}>Set Your DOB</Text>
+              <View style={Styles.dateView}>
               <DatePicker maximumDate={new Date()} mode="date" date={this.state.date} onDateChange={this.setDate} />
-
+              </View>
               <View style={Styles.buttonView}>
                 {this.state.addLoading ?
                   <TouchableOpacity
